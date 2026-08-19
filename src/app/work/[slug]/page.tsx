@@ -6,6 +6,8 @@ import { notFound } from "next/navigation";
 import { projects } from "@/data/portfolio";
 import { OrderWorkflowDiagram } from "@/components/automation-workflow";
 
+export const dynamicParams = false;
+
 export function generateStaticParams() { return projects.map(({ slug }) => ({ slug })); }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -14,7 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return project ? {
     title: project.seoTitle,
     description: project.seoDescription,
-    alternates: { canonical: `/work/${project.slug}` },
+    alternates: { canonical: `/work/${project.slug}/` },
   } : {};
 }
 

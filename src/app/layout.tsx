@@ -1,10 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { portfolio, isConfigured } from "@/data/portfolio";
-
-const siteUrl = isConfigured(portfolio.person.domain)
-  ? portfolio.person.domain.startsWith("http") ? portfolio.person.domain : `https://${portfolio.person.domain}`
-  : "http://localhost:3000";
+import { siteUrl } from "@/lib/site-url";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -15,11 +11,11 @@ export const metadata: Metadata = {
     type: "website", locale: "en_US", url: "/", siteName: "Shkelqim Hajrizi",
     title: "Shkelqim Hajrizi — Full-Stack Developer & Automation Engineer",
     description: "Web, e-commerce, software and automation development for agencies and product teams.",
-    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Shkelqim Hajrizi — Full-Stack Developer & Automation Engineer" }],
+    images: [{ url: "/opengraph-image.png", width: 1200, height: 630, alt: "Shkelqim Hajrizi — Full-Stack Developer & Automation Engineer" }],
   },
   twitter: {
     card: "summary_large_image", title: "Shkelqim Hajrizi — Full-Stack Developer & Automation Engineer",
-    description: "Web, e-commerce, software and automation development for agencies and product teams.", images: ["/opengraph-image"],
+    description: "Web, e-commerce, software and automation development for agencies and product teams.", images: ["/opengraph-image.png"],
   },
 };
 
