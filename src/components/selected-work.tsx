@@ -40,6 +40,9 @@ export function SelectedWork() {
           </article>
         ))}
       </div>
+      <div className="all-work-cta">
+        <Link href="/work/">View All Work <ArrowUpRight aria-hidden="true" /></Link>
+      </div>
     </section>
   );
 }

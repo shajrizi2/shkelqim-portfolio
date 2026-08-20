@@ -16,6 +16,6 @@ export function ButtonLink({ href, children, variant = "primary", external = fal
   const className = `button button--${variant}`;
   const content = <>{children}<ArrowUpRight aria-hidden="true" size={17} /></>;
   return external
-    ? <a className={className} href={href} target="_blank" rel="noreferrer">{content}</a>
+    ? <a className={className} href={href} target="_blank" rel="noopener noreferrer">{content}</a>
     : <Link className={className} href={href}>{content}</Link>;
 }

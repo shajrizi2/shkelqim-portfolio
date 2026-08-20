@@ -14,8 +14,9 @@ export function Hero() {
         <p className="hero-stack" aria-label="Core technologies">WordPress <span>·</span> WooCommerce <span>·</span> Shopify <span>·</span> React <span>·</span> Next.js <span>·</span> Node.js <span>·</span> n8n</p>
         <div className="hero-actions">
           <ButtonLink href="#work">View my work</ButtonLink>
-          <ButtonLink href={emailHref} variant="secondary">Let&apos;s talk</ButtonLink>
+          <ButtonLink href={portfolio.person.calendly} variant="secondary" external>Book a Call</ButtonLink>
         </div>
+        <a className="hero-email-link" href={emailHref}>Email me instead</a>
       </div>
       <div className="hero-visual" aria-label="A visual overview of connected development capabilities">
         <div className="visual-glow" />

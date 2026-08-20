@@ -5,6 +5,13 @@ export type ProjectCategory =
   | "Shopify / E-commerce"
   | "Automation / AI";
 
+export type WorkCategory =
+  | "Software"
+  | "Websites"
+  | "E-commerce"
+  | "Mobile & IoT"
+  | "Automation";
+
 export type ProjectSection = {
   label: string;
   title: string;
@@ -42,6 +49,24 @@ export type Project = {
   kind: "screenshots" | "workflow";
   seoTitle: string;
   seoDescription: string;
+  workCategories: WorkCategory[];
+  status?: string;
+};
+
+export type SupportingWorkItem = {
+  id: string;
+  name: string;
+  headline: string;
+  type: string;
+  categories: WorkCategory[];
+  description: string;
+  technologies: string[];
+  liveUrl?: string;
+  liveLabel?: string;
+  status?: string;
+  image?: string;
+  featured: false;
+  hasCaseStudy: false;
 };
 
 // This is the only file you need to edit for personal details, links, services, stack, and projects.
@@ -53,6 +78,7 @@ export const portfolio = {
     location: "Europe",
     availability: "Available for remote collaboration",
     email: "shajrizi2@gmail.com",
+    calendly: "https://calendly.com/shajrizi2/30min",
     phone: { href: "tel:+38349493327", display: "+383 49 493 327" },
     linkedin: "https://www.linkedin.com/in/shkelqim-hajrizi-794438131/",
     github: "https://github.com/shajrizi2",
@@ -180,6 +206,7 @@ export const projects: Project[] = [
     kind: "screenshots",
     seoTitle: "HyrjeDalje — Workforce Management Platform",
     seoDescription: "Multi-tenant workforce and attendance platform architected and technically led by Shkelqim Hajrizi using Next.js and NestJS.",
+    workCategories: ["Software"],
   },
   {
     id: "wondertales",
@@ -251,6 +278,7 @@ export const projects: Project[] = [
     kind: "screenshots",
     seoTitle: "WonderTales — AI-Powered Story Platform",
     seoDescription: "AI-powered personalized children's story platform built with Next.js and generative AI integrations.",
+    workCategories: ["Software", "E-commerce"],
   },
   {
     id: "kosovo-police",
@@ -315,6 +343,7 @@ export const projects: Project[] = [
     kind: "screenshots",
     seoTitle: "Kosovo Police — Public Portal & WordPress Engineering",
     seoDescription: "Public WordPress portal with custom statistics functionality, data integration and production infrastructure work.",
+    workCategories: ["Websites"],
   },
   {
     id: "menmin-made",
@@ -364,6 +393,7 @@ export const projects: Project[] = [
     kind: "screenshots",
     seoTitle: "Menmin Made — Shopify & AI-Assisted Management",
     seoDescription: "Shopify e-commerce project with AI-assisted store-management integration.",
+    workCategories: ["E-commerce", "Websites"],
   },
   {
     id: "order-extraction",
@@ -418,8 +448,182 @@ export const projects: Project[] = [
     kind: "workflow",
     seoTitle: "AI Order Extraction System — Automation Case Study",
     seoDescription: "Confidential social-commerce automation using Chatwoot webhooks, AI processing and structured order extraction.",
+    workCategories: ["Automation"],
+    status: "Internal project",
   },
 ];
+
+export const supportingWork: SupportingWorkItem[] = [
+  {
+    id: "pabau",
+    name: "Pabau",
+    headline: "Practice Management SaaS",
+    type: "Software / SaaS",
+    categories: ["Software"],
+    description: "Worked as a full-stack developer across a large practice-management SaaS platform, contributing to product functionality and application development.",
+    technologies: ["React", "Next.js", "GraphQL", "Node.js", "Prisma"],
+    liveUrl: "https://pabau.com/",
+    liveLabel: "Visit website",
+    featured: false,
+    hasCaseStudy: false,
+  },
+  {
+    id: "two-jobs",
+    name: "TWO.jobs",
+    headline: "Web & Mobile Recruitment Platform",
+    type: "Software / Mobile",
+    categories: ["Software", "Mobile & IoT"],
+    description: "Developed web and mobile product interfaces during my time at Tetbit, translating product designs into responsive UI, implementing application functionality and integrating backend APIs.",
+    technologies: ["React", "React Native", "TypeScript", "API Integration"],
+    liveUrl: "https://www.two.jobs/en",
+    liveLabel: "Visit website",
+    featured: false,
+    hasCaseStudy: false,
+  },
+  {
+    id: "advantx-smart-home",
+    name: "Advantx Smart Home",
+    headline: "IoT & Real-Time Smart Home Ecosystem",
+    type: "Mobile & IoT",
+    categories: ["Mobile & IoT", "Software"],
+    description: "Joined an existing smart-home platform and contributed to its technical evolution, desktop and mobile technology decisions, real-time communication, and a dedicated installer dashboard.",
+    technologies: ["Electron", "React / React Native", "MQTT", "LiveKit", "IoT", "AI Integration"],
+    status: "Private / non-public product",
+    featured: false,
+    hasCaseStudy: false,
+  },
+  {
+    id: "gossik",
+    name: "Gossik",
+    headline: "Mobile Application Modernization",
+    type: "Mobile application",
+    categories: ["Mobile & IoT"],
+    description: "Developed, redesigned and refactored the mobile application using Ionic and Angular, modernizing the interface and improving the application's overall structure.",
+    technologies: ["Ionic", "Angular 2+", "TypeScript", "Hybrid Mobile"],
+    liveUrl: "https://www.gossik.ch/",
+    liveLabel: "Visit website",
+    featured: false,
+    hasCaseStudy: false,
+  },
+  {
+    id: "ctl",
+    name: "CTL",
+    headline: "Crypto Platform Backend & Wallet Authentication",
+    type: "Backend / Web3",
+    categories: ["Software"],
+    description: "Built backend functionality for a crypto application using Node.js and Express, including MetaMask and Phantom wallet connectivity, wallet-based authentication and OAuth authentication.",
+    technologies: ["Node.js", "Express", "MetaMask", "Phantom", "OAuth", "Web3"],
+    status: "Previous product · No longer publicly available",
+    featured: false,
+    hasCaseStudy: false,
+  },
+  {
+    id: "generation-success",
+    name: "Generation Success",
+    headline: "Design-to-Development WordPress Build",
+    type: "Commercial website",
+    categories: ["Websites"],
+    description: "Built the complete website from provided designs, translating the visual concepts into a clean, responsive WordPress implementation with Elementor, custom styling and integrations.",
+    technologies: ["WordPress", "Elementor", "CSS", "Responsive Development"],
+    liveUrl: "https://www.generation-success.com/",
+    liveLabel: "Visit website",
+    featured: false,
+    hasCaseStudy: false,
+  },
+  {
+    id: "long-time-liner",
+    name: "Long-Time-Liner",
+    headline: "Responsive Commercial Website",
+    type: "Commercial website",
+    categories: ["Websites"],
+    description: "Translated supplied visual designs into a responsive WordPress website using Elementor, custom styling and the required integrations.",
+    technologies: ["WordPress", "Elementor", "CSS", "Responsive Development"],
+    liveUrl: "https://www.long-time-liner.com/",
+    liveLabel: "Visit website",
+    featured: false,
+    hasCaseStudy: false,
+  },
+  {
+    id: "rexhi",
+    name: "Rexhi",
+    headline: "Production WordPress Implementation",
+    type: "Commercial website",
+    categories: ["Websites"],
+    description: "Implemented the provided design as a production-ready WordPress experience with Elementor, responsive behavior and project-specific styling.",
+    technologies: ["WordPress", "Elementor", "CSS", "Responsive Development"],
+    liveUrl: "https://rexhi.com/",
+    liveLabel: "Visit website",
+    featured: false,
+    hasCaseStudy: false,
+  },
+  {
+    id: "patzina-lotz",
+    name: "Patzina Lotz",
+    headline: "Supplied-Design Website Delivery",
+    type: "Commercial website",
+    categories: ["Websites"],
+    description: "Converted supplied designs into a responsive Elementor website, applying custom styling for a clean and consistent production result.",
+    technologies: ["WordPress", "Elementor", "CSS", "Responsive Development"],
+    liveUrl: "https://patzina-lotz.com/?lang=en",
+    liveLabel: "Visit website",
+    featured: false,
+    hasCaseStudy: false,
+  },
+  {
+    id: "home-niche-links",
+    name: "Home Niche Links",
+    headline: "Responsive WordPress Website",
+    type: "Commercial website",
+    categories: ["Websites"],
+    description: "Built a clean, responsive WordPress implementation from the provided design, using Elementor, custom CSS and appropriate integrations.",
+    technologies: ["WordPress", "Elementor", "CSS", "Responsive Development"],
+    liveUrl: "https://homenichelinks.com/",
+    liveLabel: "Visit website",
+    featured: false,
+    hasCaseStudy: false,
+  },
+  {
+    id: "sote-coffee-roasters",
+    name: "Sote Coffee Roasters",
+    headline: "Responsive Brand Website",
+    type: "Commercial website",
+    categories: ["Websites"],
+    description: "Delivered the supplied design as a responsive WordPress site with Elementor, polished UI styling and the integrations required for production.",
+    technologies: ["WordPress", "Elementor", "CSS", "Responsive Development"],
+    liveUrl: "https://sotecoffeeroasters.com/",
+    liveLabel: "Visit website",
+    featured: false,
+    hasCaseStudy: false,
+  },
+  {
+    id: "oek-kcc",
+    name: "OEK / KCC",
+    headline: "Maintainable Commercial Website",
+    type: "Commercial website",
+    categories: ["Websites"],
+    description: "Translated the provided design into a responsive WordPress website with Elementor, focusing on clean implementation and maintainability.",
+    technologies: ["WordPress", "Elementor", "CSS", "Responsive Development"],
+    liveUrl: "https://www.oek-kcc.org/",
+    liveLabel: "Visit website",
+    featured: false,
+    hasCaseStudy: false,
+  },
+  {
+    id: "falcon-funded",
+    name: "Falcon Funded",
+    headline: "Responsive UI Development",
+    type: "Commercial website",
+    categories: ["Websites"],
+    description: "Built the production website from provided visual designs using WordPress and Elementor, with responsive UI work, custom styling and integrations.",
+    technologies: ["WordPress", "Elementor", "CSS", "Responsive Development"],
+    liveUrl: "https://falconfunded.com/",
+    liveLabel: "Visit website",
+    featured: false,
+    hasCaseStudy: false,
+  },
+];
+
+export const workFilters = ["All", "Software", "Websites", "E-commerce", "Mobile & IoT", "Automation"] as const;
 
 export const isConfigured = (value: string) =>
   Boolean(value && !value.startsWith("YOUR_") && !value.includes("YOUR_DOMAIN"));
