@@ -8,14 +8,14 @@ export function About() {
   return (
     <section className="section production-section" id="about">
       <div className="shell">
-        <SectionHeading eyebrow="About + technical range" title="From build to production." body="I can stay with the work across client websites, custom applications, backend services, infrastructure and automation." />
+        <SectionHeading eyebrow="About + technical range" title="From build to production." body="6+ years shipping production software for international teams, from multi-tenant SaaS to AI products and real-time device control." />
         <div className="delivery-path" aria-label="Delivery capability from frontend through automation">
           {deliveryPath.map((step, index) => <div key={step}><span>{String(index + 1).padStart(2, "0")}</span><strong>{step}</strong></div>)}
         </div>
         <div className="production-intro">
           <div>
-            <p>I&apos;m a full-stack developer comfortable working across client websites, e-commerce, custom applications, backend services and production infrastructure.</p>
-            <p>I can join existing projects, implement features, troubleshoot production issues, maintain systems and automate repetitive work.</p>
+            <p>I&apos;m a senior full-stack engineer based in Europe. I&apos;ve led a small development team as architect, built AI products and AI-driven automations, modernized legacy applications, and shipped everything from WordPress sites to Electron apps controlling smart-home hardware.</p>
+            <p>That range is the point: your agency gets one person who can pick up whatever lands on the table, join existing codebases quickly, and own the work through to production.</p>
           </div>
           <div className="about-checks"><span><CheckCircle2 /> Existing codebases</span><span><CheckCircle2 /> Independent ownership</span><span><CheckCircle2 /> Long-term collaboration</span><span><CheckCircle2 /> Production support</span></div>
         </div>

@@ -1,13 +1,13 @@
-import { CodeXml, LayoutTemplate, ServerCog, ShoppingCart, Wrench, Workflow } from "lucide-react";
+import { BrainCircuit, CodeXml, LayoutTemplate, ServerCog, ShoppingCart, Wrench, Workflow } from "lucide-react";
 import { portfolio } from "@/data/portfolio";
 import { SectionHeading } from "./ui";
 
-const icons = { layout: LayoutTemplate, cart: ShoppingCart, window: CodeXml, server: ServerCog, workflow: Workflow, wrench: Wrench };
+const icons = { ai: BrainCircuit, layout: LayoutTemplate, cart: ShoppingCart, window: CodeXml, server: ServerCog, workflow: Workflow, wrench: Wrench };
 
 export function Capabilities() {
   return (
     <section className="section shell" id="services">
-      <SectionHeading eyebrow="What I can handle" title="Work you can hand off to me." body="Client websites, stores, applications and the systems behind them—organized around the work your team needs delivered." />
+      <SectionHeading eyebrow="What I can handle" title="Work you can hand off to me." body="If it involves software, AI, automation, integrations or web systems, there's a good chance I can take it off your plate." />
       <div className="capability-grid">
         {portfolio.capabilities.map((item) => {
           const Icon = icons[item.icon];
