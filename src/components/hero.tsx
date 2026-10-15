@@ -10,7 +10,7 @@ export function Hero() {
         <div className="availability"><span aria-hidden="true" />{portfolio.person.availability}</div>
         <p className="hero-kicker">{portfolio.person.title}</p>
         <h1>The senior engineer your agency calls <em>when it gets technical.</em></h1>
-        <p className="hero-lede">I help US agencies deliver the work their team can&apos;t take on: AI integrations, automation, custom software, complex integrations and client sites. White-label or under my name, with daily overlap on US working hours.</p>
+        <p className="hero-lede">I help agencies deliver the work their team can&apos;t take on: AI integrations, automation, custom software, complex integrations and client sites. White-label or under my name, with daily overlap on US working hours.</p>
         <p className="hero-stack" aria-label="Core capabilities">AI &amp; LLMs <span>·</span> Automation <span>·</span> Custom software <span>·</span> APIs &amp; integrations <span>·</span> WordPress &amp; Shopify</p>
         <div className="hero-actions">
           <ButtonLink href="#work">View my work</ButtonLink>
