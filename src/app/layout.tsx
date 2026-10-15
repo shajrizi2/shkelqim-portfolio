@@ -4,18 +4,18 @@ import { siteUrl } from "@/lib/site-url";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: { default: "Shkelqim Hajrizi — Full-Stack Developer & Automation Engineer", template: "%s — Shkelqim Hajrizi" },
-  description: "Full-stack developer helping agencies and product teams build WordPress websites, e-commerce stores, modern web applications, backend systems and workflow automations.",
+  title: { default: "Shkelqim Hajrizi — Senior Full-Stack & AI Engineer for Agencies", template: "%s — Shkelqim Hajrizi" },
+  description: "Senior technical partner for US agencies: AI integrations, automation, custom software, integrations and client websites, white-label, with US hours overlap.",
   alternates: { canonical: "/" },
   openGraph: {
     type: "website", locale: "en_US", url: "/", siteName: "Shkelqim Hajrizi",
-    title: "Shkelqim Hajrizi — Full-Stack Developer & Automation Engineer",
-    description: "Web, e-commerce, software and automation development for agencies and product teams.",
-    images: [{ url: "/opengraph-image.png", width: 1200, height: 630, alt: "Shkelqim Hajrizi — Full-Stack Developer & Automation Engineer" }],
+    title: "Shkelqim Hajrizi — Senior Full-Stack & AI Engineer for Agencies",
+    description: "AI, automation, custom software and web delivery for US agencies.",
+    images: [{ url: "/opengraph-image.png", width: 1200, height: 630, alt: "Shkelqim Hajrizi — Senior Full-Stack & AI Engineer for Agencies" }],
   },
   twitter: {
-    card: "summary_large_image", title: "Shkelqim Hajrizi — Full-Stack Developer & Automation Engineer",
-    description: "Web, e-commerce, software and automation development for agencies and product teams.", images: ["/opengraph-image.png"],
+    card: "summary_large_image", title: "Shkelqim Hajrizi — Senior Full-Stack & AI Engineer for Agencies",
+    description: "AI, automation, custom software and web delivery for US agencies.", images: ["/opengraph-image.png"],
   },
 };
 

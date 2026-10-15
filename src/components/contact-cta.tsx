@@ -8,8 +8,8 @@ export function ContactCta() {
     <section className="contact-section" id="contact">
       <div className="contact-inner shell">
         <p className="eyebrow"><span />Start a conversation</p>
-        <h2>Need extra development <em>capacity?</em></h2>
-        <p>Let&apos;s talk about your projects and where I can help.</p>
+        <h2>Something technical your team <em>can&apos;t take on?</em></h2>
+        <p>Book a 30-minute call or send a short email about the project. I usually reply within one business day.</p>
         <div className="contact-actions">
           <a className="button button--light" href={calendly} target="_blank" rel="noopener noreferrer">Book a Call <ArrowUpRight aria-hidden="true" size={17} /></a>
           <a className="button button--dark" href={`mailto:${email}`}><Mail aria-hidden="true" size={17} />Email Me</a>

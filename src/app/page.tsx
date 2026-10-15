@@ -3,6 +3,7 @@ import { Hero } from "@/components/hero";
 import { SelectedWork } from "@/components/selected-work";
 import { Capabilities } from "@/components/capabilities";
 import { AgencySupport } from "@/components/agency-support";
+import { EngagementModels } from "@/components/engagement-models";
 import { AutomationWorkflow } from "@/components/automation-workflow";
 import { About } from "@/components/about";
 import { ContactCta } from "@/components/contact-cta";
@@ -17,6 +18,7 @@ export default function Home() {
         <SelectedWork />
         <Capabilities />
         <AgencySupport />
+        <EngagementModels />
         <AutomationWorkflow />
         <About />
         <ContactCta />

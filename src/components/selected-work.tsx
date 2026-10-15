@@ -9,7 +9,7 @@ export function SelectedWork() {
 
   return (
     <section className="section shell" id="work">
-      <SectionHeading eyebrow="Project proof" title="Selected work." body="Production work across custom software, AI products, public-sector WordPress engineering and Shopify commerce." />
+      <SectionHeading eyebrow="Project proof" title="Selected work." body="Live production work: a multi-tenant SaaS I architected, AI products, AI-driven automation, public-sector WordPress and Shopify commerce." />
       <div className="project-grid">
         {featuredProjects.map((project, index) => (
           <article className={`project-card project-card--${index + 1}`} key={project.id}>
