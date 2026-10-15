@@ -74,7 +74,7 @@ export const portfolio = {
   person: {
     name: "Shkelqim Hajrizi",
     title: "Senior Full-Stack & AI Engineer",
-    tagline: "Senior technical partner for US agencies: AI, automation, custom software and the hard problems in between.",
+    tagline: "Senior technical partner for agencies: AI, automation, custom software and the hard problems in between.",
     location: "Europe",
     availability: "Taking on agency work · overlaps US hours",
     email: "shajrizi2@gmail.com",
