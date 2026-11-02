@@ -28,6 +28,10 @@ Open [http://localhost:3000](http://localhost:3000).
 - `src/lib/site-url.ts` builds absolute URLs for metadata. Set
   `NEXT_PUBLIC_SITE_URL` to the public origin before building for deployment;
   without it, the fallback is `http://localhost:3000`.
+- Project `awsArchitecture` entries describe integrated AWS services, processing
+  flows and engineering decisions. Keep these descriptions consistent with the
+  technology lists and project summaries. The shared rendering lives in
+  `src/components/aws-architecture.tsx`.
 
 ## Contact behavior
 
@@ -51,12 +55,17 @@ case-study outcomes.
 
 ## Deployment
 
-Use a hosting provider that supports this Next.js version and its build output.
-Set `NEXT_PUBLIC_SITE_URL` to the final public origin in the build environment,
-then run `npm run build`. `npm start` runs the built Next.js server. Public
-`NEXT_PUBLIC_*` values may be included in browser output and must not contain
-secrets. `.env.example` documents the current site-URL setting; it is not a
-production secret store. No public deployment is established by these instructions.
+The site uses Next.js static export (`output: 'export'`). `npm run build`
+generates the deployable site in `out/`; `netlify.toml` configures Netlify to use
+that build command and publish directory. For a local production preview, run
+`python3 -m http.server 4173 --directory out` and open
+[http://localhost:4173](http://localhost:4173). `npm start` is not the preview
+command for this static export.
+
+Set `NEXT_PUBLIC_SITE_URL` to the final public origin in the build environment
+and rebuild after changing it. Public `NEXT_PUBLIC_*` values may be included in
+browser output and must not contain secrets. `.env.example` documents the
+current site-URL setting; it is not a production secret store.
 
 ## Case-study and asset ownership
 

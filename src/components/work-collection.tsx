@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { useState } from "react";
 import { projects, supportingWork, workFilters, type WorkCategory } from "@/data/portfolio";
+import { AwsArchitecturePreview } from "@/components/aws-architecture";
 
 type ActiveFilter = (typeof workFilters)[number];
 
@@ -83,6 +84,7 @@ export function WorkCollection() {
                   {project.leadership ? <p className="work-featured-leadership">{project.leadership}</p> : null}
                   <p className="work-card-description">{project.shortDescription}</p>
                   <div className="work-tags">{project.cardTechnologies.map((tech) => <span key={tech}>{tech}</span>)}</div>
+                  {project.awsArchitecture ? <AwsArchitecturePreview architecture={project.awsArchitecture} /> : null}
                   <div className="work-card-action-row">
                     <Link href={`${project.caseStudyUrl}/`}>View case study <ArrowUpRight aria-hidden="true" /></Link>
                     {project.liveUrl ? (
@@ -121,7 +123,9 @@ export function WorkCollection() {
                   <h3>{project.name}</h3>
                   <h4>{project.headline}</h4>
                   <p>{project.description}</p>
-                  <div className="work-tags">{project.technologies.slice(0, 6).map((tech) => <span key={tech}>{tech}</span>)}</div>
+                  <div className="work-tags">{project.technologies.map((tech) => <span key={tech}>{tech}</span>)}</div>
+                  {project.awsArchitecture ? <AwsArchitecturePreview architecture={project.awsArchitecture} /> : null}
+                  {project.awsArchitecture?.considerations.map((item) => <p key={item}>{item}</p>)}
                 </div>
                 <div className="supporting-card-footer">
                   {project.liveUrl ? (

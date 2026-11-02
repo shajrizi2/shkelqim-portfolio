@@ -25,6 +25,13 @@ export type ProjectImage = {
   caption: string;
 };
 
+export type AwsArchitecture = {
+  services: string[];
+  summary: string;
+  flow?: string[];
+  considerations: string[];
+};
+
 export type Project = {
   id: string;
   name: string;
@@ -51,6 +58,7 @@ export type Project = {
   seoDescription: string;
   workCategories: WorkCategory[];
   status?: string;
+  awsArchitecture?: AwsArchitecture;
 };
 
 export type SupportingWorkItem = {
@@ -67,6 +75,7 @@ export type SupportingWorkItem = {
   image?: string;
   featured: false;
   hasCaseStudy: false;
+  awsArchitecture?: AwsArchitecture;
 };
 
 // This is the only file you need to edit for personal details, links, services, stack, and projects.
@@ -116,6 +125,7 @@ export const portfolio = {
     { name: "Websites & e-commerce", items: ["WordPress", "Gutenberg", "WooCommerce", "Shopify", "Stripe", "Elementor", "Divi"] },
     { name: "Real-time, desktop & mobile", items: ["Electron", "React Native", "Expo", "MQTT", "WebRTC", "LiveKit", "SIP"] },
     { name: "Production", items: ["Docker", "Linux", "Git", "Auth0 / OAuth2 / JWT"] },
+    { name: "AWS", items: ["Lambda", "EKS", "S3", "SQS", "SNS", "DynamoDB"] },
   ],
   process: [
     { number: "01", title: "Understand", text: "Learn the product, client requirements, codebase and priorities." },
@@ -138,11 +148,20 @@ export const projects: Project[] = [
     slug: "hyrjedalje",
     category: "Workforce Management SaaS",
     headline: "Multi-Tenant Workforce & Attendance Platform",
-    shortDescription: "Architected and led a multi-tenant platform for employees, attendance devices, shifts, leave, reporting and payroll-related calculations.",
+    shortDescription: "Architected and led a Next.js/NestJS workforce platform on EKS, combining PostgreSQL and Prisma with queued attendance processing, report exports and operational alerts.",
     myRole: "System Architect & Tech Lead",
     leadership: "Led a development team of three engineers.",
-    technologies: ["Next.js", "React", "TypeScript", "shadcn/ui", "NestJS", "Node.js", "Pino", "Claude", "APIs / integrations"],
-    cardTechnologies: ["Next.js", "NestJS", "TypeScript", "shadcn/ui", "Pino"],
+    technologies: ["Next.js", "React", "TypeScript", "shadcn/ui", "NestJS", "Node.js", "Prisma", "PostgreSQL", "Pino", "Claude", "APIs / integrations", "AWS EKS", "AWS Lambda", "Amazon S3", "Amazon SQS", "Amazon SNS", "Amazon DynamoDB"],
+    cardTechnologies: ["Next.js", "NestJS", "PostgreSQL", "Prisma", "AWS EKS"],
+    awsArchitecture: {
+      services: ["EKS", "SQS", "S3", "Lambda", "SNS", "DynamoDB"],
+      summary: "The NestJS API runs on EKS, with SQS for attendance-event processing and Lambda for scheduled report exports.",
+      flow: ["Attendance device", "NestJS API on EKS", "SQS", "Worker", "PostgreSQL"],
+      considerations: [
+        "PostgreSQL remains the source of truth for shifts, attendance, leave and payroll, accessed through Prisma. DynamoDB stores device cursors and event-deduplication state.",
+        "S3 stores generated reports, Lambda handles scheduled exports and SNS distributes operational alerts.",
+      ],
+    },
     sections: [
       {
         label: "01 / OVERVIEW",
@@ -184,7 +203,8 @@ export const projects: Project[] = [
         label: "05 / ENGINEERING",
         title: "Architecture and integration work",
         paragraphs: [
-          "The product uses a Next.js frontend and NestJS backend with modular boundaries for the platform's workforce, attendance and reporting concerns. Pino provides structured application logging, while API integrations connect device-related workflows.",
+          "The product uses a Next.js frontend and a NestJS API on EKS, with Prisma and PostgreSQL for workforce, attendance and payroll records. SQS separates device-event intake from background processing; DynamoDB tracks device cursors and deduplication state. Pino provides structured application logging.",
+          "Lambda handles scheduled exports, S3 stores generated reports and SNS distributes operational alerts. These services support the core application while PostgreSQL remains the source of truth for business records.",
           "I also integrated Claude into an adapter layer to assist with extending support and onboarding for additional attendance-device types. The AI-assisted workflow supports the engineering process; it does not autonomously control devices.",
         ],
       },
@@ -207,7 +227,7 @@ export const projects: Project[] = [
     projectType: "Custom software",
     kind: "screenshots",
     seoTitle: "HyrjeDalje — Workforce Management Platform",
-    seoDescription: "Multi-tenant workforce and attendance platform architected and technically led by Shkelqim Hajrizi using Next.js and NestJS.",
+    seoDescription: "Multi-tenant workforce platform using Next.js, NestJS, Prisma, PostgreSQL and AWS EKS, with SQS attendance processing, Lambda exports and S3 report storage.",
     workCategories: ["Software"],
   },
   {
@@ -216,10 +236,19 @@ export const projects: Project[] = [
     slug: "wondertales",
     category: "AI Product / E-commerce",
     headline: "AI-Powered Personalized Children's Story Platform",
-    shortDescription: "Built a full-stack product that personalizes children's stories using a child's details and photo, with AI generation and story-management tools.",
+    shortDescription: "Built a Next.js story platform with personalized AI content, payments and administration, backed by Lambda, SQS, S3 and DynamoDB for generation jobs and downloadable assets.",
     myRole: "Full-stack development & AI integration",
-    technologies: ["Next.js", "React", "TypeScript", "Replicate", "MiniMax", "Generative AI"],
-    cardTechnologies: ["Next.js", "TypeScript", "Replicate", "MiniMax", "AI"],
+    technologies: ["Next.js", "React", "TypeScript", "Replicate", "MiniMax", "Generative AI", "AWS Lambda", "Amazon SQS", "Amazon S3", "Amazon DynamoDB", "Amazon SNS"],
+    cardTechnologies: ["Next.js", "TypeScript", "Replicate", "AWS Lambda", "Amazon S3"],
+    awsArchitecture: {
+      services: ["Lambda", "SQS", "S3", "DynamoDB", "SNS"],
+      summary: "A serverless generation pipeline separates customer requests from AI processing, with SQS buffering generation jobs and S3 storing illustrations and generated books.",
+      flow: ["Next.js", "Lambda validation", "SQS generation queue", "AI worker", "S3 images / PDFs"],
+      considerations: [
+        "Lambda validates requests and handles short processing tasks. SQS buffers generation work and supports retries and dead-letter handling.",
+        "DynamoDB tracks generation status while relational order and payment records stay in their existing system. SNS distributes completion and failure events.",
+      ],
+    },
     sections: [
       {
         label: "01 / OVERVIEW",
@@ -246,6 +275,7 @@ export const projects: Project[] = [
         title: "Generative AI inside a product workflow",
         paragraphs: [
           "Replicate and the MiniMax model support the platform's generative image functionality. The integration sits within a full customer and commerce experience rather than operating as a standalone AI demonstration.",
+          "Lambda validates generation requests and SQS queues the work for AI processing. Generated illustrations and books are stored in S3, DynamoDB tracks job status and SNS distributes completion and failure events.",
         ],
       },
       {
@@ -279,7 +309,7 @@ export const projects: Project[] = [
     projectType: "Full-stack AI product",
     kind: "screenshots",
     seoTitle: "WonderTales — AI-Powered Story Platform",
-    seoDescription: "AI-powered personalized children's story platform built with Next.js and generative AI integrations.",
+    seoDescription: "Next.js personalized story platform with Replicate and MiniMax AI generation, AWS Lambda, SQS job processing, S3 assets, DynamoDB status and SNS events.",
     workCategories: ["Software", "E-commerce"],
   },
   {
@@ -288,10 +318,18 @@ export const projects: Project[] = [
     slug: "kosovo-police",
     category: "WordPress / Public Sector",
     headline: "Public Portal & Custom WordPress Engineering",
-    shortDescription: "Developed the public WordPress website with custom PHP/plugin functionality for automatically publishing data-driven statistics.",
+    shortDescription: "Developed a WordPress public portal with custom PHP statistics publishing, S3 media storage, Lambda data preparation and SQS background processing.",
     myRole: "WordPress development, data integration & infrastructure",
-    technologies: ["WordPress", "PHP", "Custom Plugin", "Data Integration", "Load Balancing"],
-    cardTechnologies: ["WordPress", "PHP", "Custom Plugin", "Data Integration"],
+    technologies: ["WordPress", "PHP", "Custom Plugin", "Data Integration", "Load Balancing", "Amazon S3", "AWS Lambda", "Amazon SQS"],
+    cardTechnologies: ["WordPress", "PHP", "Custom Plugin", "Amazon S3", "AWS Lambda"],
+    awsArchitecture: {
+      services: ["S3", "Lambda", "SQS"],
+      summary: "S3 supports public assets and exports, while Lambda and SQS handle background statistics preparation and publishing around the WordPress portal.",
+      considerations: [
+        "Lambda handles scheduled data preparation, and SQS decouples background publishing work from public page requests.",
+        "The architecture shown covers public assets and statistics publishing; private endpoints and internal infrastructure details remain confidential.",
+      ],
+    },
     sections: [
       {
         label: "01 / OVERVIEW",
@@ -312,6 +350,7 @@ export const projects: Project[] = [
         title: "Automated, data-driven publishing",
         paragraphs: [
           "I developed a custom WordPress plugin that retrieves information from the organization's data source and automatically updates public statistics on a daily basis.",
+          "Lambda prepares data on a schedule, SQS queues background publishing tasks and S3 stores public media and exports, keeping that work separate from page requests.",
           "The public views present overview, accident and misdemeanor statistics without exposing private endpoints or implementation details.",
         ],
       },
@@ -344,7 +383,7 @@ export const projects: Project[] = [
     projectType: "Public portal",
     kind: "screenshots",
     seoTitle: "Kosovo Police — Public Portal & WordPress Engineering",
-    seoDescription: "Public WordPress portal with custom statistics functionality, data integration and production infrastructure work.",
+    seoDescription: "Public WordPress portal with custom PHP statistics publishing, data integration, Amazon S3 assets, AWS Lambda preparation and SQS background processing.",
     workCategories: ["Websites"],
   },
   {
@@ -353,10 +392,18 @@ export const projects: Project[] = [
     slug: "menmin-made",
     category: "Shopify / E-commerce",
     headline: "Shopify Store & AI-Assisted Management",
-    shortDescription: "Shopify e-commerce delivery with AI-assisted workflows that simplify product, content, inventory and routine store-management tasks.",
+    shortDescription: "Built a Shopify store with Claude-assisted administration and AWS integrations: Lambda webhooks, SQS background tasks and S3 content assets.",
     myRole: "Shopify development & AI integration",
-    technologies: ["Shopify", "E-commerce", "Claude", "AI Integration", "APIs / integrations"],
-    cardTechnologies: ["Shopify", "E-commerce", "Claude", "AI Integration"],
+    technologies: ["Shopify", "E-commerce", "Claude", "AI Integration", "APIs / integrations", "AWS Lambda", "Amazon S3", "Amazon SQS"],
+    cardTechnologies: ["Shopify", "Claude", "AWS Lambda", "Amazon S3", "Amazon SQS"],
+    awsArchitecture: {
+      services: ["Lambda", "S3", "SQS"],
+      summary: "Lambda processes Shopify webhook events, SQS queues administration tasks and S3 stores generated content assets.",
+      considerations: [
+        "Queued processing separates background administration work from the customer-facing storefront.",
+        "Shopify remains the commerce platform, with the client retaining control over AI-assisted administrative changes.",
+      ],
+    },
     sections: [
       {
         label: "01 / OVERVIEW",
@@ -377,6 +424,7 @@ export const projects: Project[] = [
         title: "Assistance for routine store management",
         paragraphs: [
           "I integrated a Claude-based workflow that assists the client with managing and updating products, generating or editing product content, inventory-related administration, store configuration and other routine store-management tasks.",
+          "Lambda processes Shopify webhook events, SQS queues background administration work and S3 stores generated content assets. Shopify remains responsible for the commerce experience.",
           "The integration is an assistive administration layer; it is not presented as unrestricted autonomous control of the store.",
         ],
       },
@@ -394,7 +442,7 @@ export const projects: Project[] = [
     projectType: "Shopify store",
     kind: "screenshots",
     seoTitle: "Menmin Made — Shopify & AI-Assisted Management",
-    seoDescription: "Shopify e-commerce project with AI-assisted store-management integration.",
+    seoDescription: "Shopify e-commerce with Claude-assisted store management, AWS Lambda webhook integrations, Amazon SQS background tasks and S3 content storage.",
     workCategories: ["E-commerce", "Websites"],
   },
   {
@@ -403,10 +451,19 @@ export const projects: Project[] = [
     slug: "order-extraction",
     category: "Automation / AI",
     headline: "Social Commerce Order Automation",
-    shortDescription: "Built an automated workflow that uses Chatwoot webhooks and AI processing to turn relevant social-commerce messages into structured order data.",
+    shortDescription: "Built an AWS-backed workflow using Chatwoot webhooks, Lambda and SQS to turn social-commerce messages into validated, structured order data.",
     myRole: "Automation development & AI integration",
-    technologies: ["Chatwoot", "Webhooks", "AI", "Structured Data Extraction", "API Integration"],
-    cardTechnologies: ["Chatwoot", "Webhooks", "AI", "API Integration"],
+    technologies: ["Chatwoot", "Webhooks", "AI", "Structured Data Extraction", "n8n", "API Integration", "AWS Lambda", "Amazon SQS", "Amazon S3", "Amazon SNS", "Amazon DynamoDB"],
+    cardTechnologies: ["Chatwoot", "AI", "AWS Lambda", "Amazon SQS", "Amazon DynamoDB"],
+    awsArchitecture: {
+      services: ["Lambda", "SQS", "S3", "SNS", "DynamoDB"],
+      summary: "Chatwoot webhooks enter a serverless pipeline: Lambda validates incoming events, SQS queues processing and a Lambda worker extracts structured order data for the operational API or CRM.",
+      flow: ["Chatwoot webhook", "Lambda validation", "SQS", "Lambda AI extraction", "Operational API / CRM"],
+      considerations: [
+        "S3 stores raw payloads and attachments, DynamoDB tracks job state and deduplication, and SNS publishes result events.",
+        "Queue-based processing separates webhook intake from AI extraction and downstream API delivery.",
+      ],
+    },
     sections: [
       {
         label: "01 / OVERVIEW",
@@ -427,7 +484,7 @@ export const projects: Project[] = [
         label: "03 / WORKFLOW",
         title: "From conversation to structured order",
         paragraphs: [
-          "Social-media conversations arrive in Chatwoot. Webhook events trigger filtering and AI processing, which identifies relevant messages, extracts structured order details and passes validated data into the client's order workflow.",
+          "Social-media conversations arrive in Chatwoot. Webhooks invoke Lambda validation, then SQS queues messages for a Lambda AI extraction worker. Validated order data is passed into the client's operational API or CRM, with DynamoDB tracking job state and preventing duplicate processing.",
         ],
       },
       {
@@ -449,7 +506,7 @@ export const projects: Project[] = [
     projectType: "Internal automation",
     kind: "workflow",
     seoTitle: "AI Order Extraction System — Automation Case Study",
-    seoDescription: "Confidential social-commerce automation using Chatwoot webhooks, AI processing and structured order extraction.",
+    seoDescription: "Social-commerce automation using Chatwoot webhooks, AWS Lambda, SQS, S3, SNS and DynamoDB for AI order extraction and operational API integration.",
     workCategories: ["Automation"],
     status: "Internal project",
   },
@@ -462,8 +519,13 @@ export const supportingWork: SupportingWorkItem[] = [
     headline: "Practice Management SaaS",
     type: "Software / SaaS",
     categories: ["Software"],
-    description: "Worked as a full-stack developer across a large practice-management SaaS platform, contributing to product functionality and application development.",
-    technologies: ["React", "Next.js", "GraphQL", "Node.js", "Prisma"],
+    description: "Contributed full-stack product functionality to a practice-management SaaS platform using React, Next.js, GraphQL, Node.js and Prisma, with AWS-backed services for container hosting, asynchronous work, assets and integrations.",
+    technologies: ["React", "Next.js", "GraphQL", "Node.js", "Prisma", "AWS EKS", "Amazon SQS", "Amazon S3", "AWS Lambda"],
+    awsArchitecture: {
+      services: ["EKS", "SQS", "S3", "Lambda"],
+      summary: "EKS supports containerized services, SQS handles asynchronous work, S3 stores assets and Lambda processes background integration tasks.",
+      considerations: [],
+    },
     liveUrl: "https://pabau.com/",
     liveLabel: "Visit website",
     featured: false,
@@ -475,8 +537,13 @@ export const supportingWork: SupportingWorkItem[] = [
     headline: "Web & Mobile Recruitment Platform",
     type: "Software / Mobile",
     categories: ["Software", "Mobile & IoT"],
-    description: "Developed web and mobile product interfaces during my time at Tetbit, translating product designs into responsive UI, implementing application functionality and integrating backend APIs.",
-    technologies: ["React", "React Native", "TypeScript", "API Integration"],
+    description: "Developed web and mobile interfaces at Tetbit using React, React Native and TypeScript, integrating backend APIs with AWS services for media storage, event processing, notifications and application state.",
+    technologies: ["React", "React Native", "TypeScript", "API Integration", "Amazon S3", "AWS Lambda", "Amazon SNS", "Amazon DynamoDB"],
+    awsArchitecture: {
+      services: ["S3", "Lambda", "SNS", "DynamoDB"],
+      summary: "S3 stores media, Lambda processes backend events, SNS distributes notifications and DynamoDB maintains key-value application state.",
+      considerations: [],
+    },
     liveUrl: "https://www.two.jobs/en",
     liveLabel: "Visit website",
     featured: false,
@@ -488,8 +555,13 @@ export const supportingWork: SupportingWorkItem[] = [
     headline: "IoT & Real-Time Smart Home Ecosystem",
     type: "Mobile & IoT",
     categories: ["Mobile & IoT", "Software"],
-    description: "Joined an existing smart-home platform and contributed to its technical evolution, desktop and mobile technology decisions, real-time communication, and a dedicated installer dashboard.",
-    technologies: ["Electron", "React / React Native", "MQTT", "LiveKit", "IoT", "AI Integration"],
+    description: "Contributed desktop and mobile controls, real-time communication and an installer dashboard to a smart-home ecosystem using Electron, MQTT, KNX and LiveKit/WebRTC/SIP. AWS supports management APIs, telemetry, device state and alerts, while local controls retain offline operation.",
+    technologies: ["Electron", "React / React Native", "MQTT", "KNX", "LiveKit", "WebRTC", "SIP", "REST APIs", "AI Integration", "AWS EKS", "AWS Lambda", "Amazon SQS", "Amazon SNS", "Amazon DynamoDB", "Amazon S3"],
+    awsArchitecture: {
+      services: ["EKS", "Lambda", "SQS", "SNS", "DynamoDB", "S3"],
+      summary: "EKS hosts management APIs, Lambda processes telemetry and automation triggers, and SQS handles asynchronous device events. DynamoDB stores device state, SNS distributes incident alerts and S3 holds diagnostics and configuration artifacts.",
+      considerations: ["Latency-critical building control stays local, keeping basic device functionality available without an external cloud connection."],
+    },
     status: "Private / non-public product",
     featured: false,
     hasCaseStudy: false,
@@ -500,8 +572,13 @@ export const supportingWork: SupportingWorkItem[] = [
     headline: "Mobile Application Modernization",
     type: "Mobile application",
     categories: ["Mobile & IoT"],
-    description: "Developed, redesigned and refactored the mobile application using Ionic and Angular, modernizing the interface and improving the application's overall structure.",
-    technologies: ["Ionic", "Angular 2+", "TypeScript", "Hybrid Mobile"],
+    description: "Modernized the Ionic and Angular mobile application through redesign and refactoring, alongside AWS-backed assets, event processing, notifications and key-value application state.",
+    technologies: ["Ionic", "Angular 2+", "TypeScript", "Hybrid Mobile", "Amazon S3", "AWS Lambda", "Amazon SNS", "Amazon DynamoDB"],
+    awsArchitecture: {
+      services: ["S3", "Lambda", "SNS", "DynamoDB"],
+      summary: "S3 stores application assets, Lambda processes backend events, SNS supports notifications and DynamoDB holds key-value application state.",
+      considerations: [],
+    },
     liveUrl: "https://www.gossik.ch/",
     liveLabel: "Visit website",
     featured: false,
