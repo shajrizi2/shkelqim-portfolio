@@ -690,6 +690,31 @@ img { max-width: 100%; }
   .contact-github { margin-top: 18px; }
 }
 
+/* Proposed AWS architecture stays separate from delivered project technologies. */
+.aws-plan { padding-bottom: 48px; }
+.aws-plan-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.aws-plan-grid article { min-width: 0; padding: 28px; border: 1px solid var(--line); border-radius: 10px; background: #101310; }
+.aws-label { color: var(--accent); font: 10px var(--font-mono); line-height: 1.6; letter-spacing: .06em; text-transform: uppercase; }
+.aws-plan-grid h3 { margin: 15px 0; font-size: 23px; line-height: 1.3; letter-spacing: -.025em; }
+.aws-plan-grid article > p:not(.aws-label), .aws-learning-order { color: var(--muted); font-size: 14px; line-height: 1.7; }
+.aws-plan-grid a { display: inline-block; margin-top: 14px; color: var(--accent); font-size: 13px; line-height: 1.6; }
+.aws-learning-order { margin: 25px 0 0; }
+.aws-learning-order strong { color: var(--text); }
+.aws-preview { margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line); }
+.aws-preview p { margin: 0; }
+.aws-preview p + p { margin-top: 9px; }
+.aws-preview > p:not(.aws-label) { color: var(--muted); font-size: 13px; line-height: 1.65; }
+.aws-preview .aws-services { color: #cbd2cd !important; font: 10px/1.8 var(--font-mono) !important; }
+.aws-detail { scroll-margin-top: 100px; }
+.aws-detail .work-tags { margin: 20px 0; }
+.aws-flow { display: flex; flex-wrap: wrap; gap: 10px 28px; padding-left: 22px; margin: 24px 0; }
+.aws-flow li { padding: 8px 10px; border: 1px solid var(--line); border-radius: 4px; color: #cbd2cd; font-size: 13px; }
+.case-content .aws-flow li + li { margin-top: 0; }
+@media (max-width: 800px) {
+  .aws-plan-grid { grid-template-columns: 1fr; }
+  .aws-plan-grid article { padding: 22px; }
+}
+
 /* Selected work archive. */
 .all-work-cta { display: flex; justify-content: center; margin-top: 58px; padding-top: 30px; border-top: 1px solid var(--line-soft); }
 .all-work-cta a { display: inline-flex; align-items: center; gap: 10px; min-height: 46px; padding: 0 18px; border: 1px solid #3c463f; border-radius: 6px; background: #121613; color: #d7ddd9; font-size: 13px; font-weight: 650; transition: border-color .2s, background .2s, transform .2s; }

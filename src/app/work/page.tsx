@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { WorkCollection } from "@/components/work-collection";
+import { AwsPortfolioPlan } from "@/components/aws-architecture";
 
 export const metadata: Metadata = {
   title: "Selected Work",
@@ -25,6 +26,7 @@ export default function WorkIndexPage() {
           <p>A broader selection of software products, websites, mobile applications, e-commerce projects and systems I&apos;ve built or contributed to.</p>
         </header>
         <div className="work-index-content shell">
+          <AwsPortfolioPlan />
           <WorkCollection />
         </div>
       </main>
