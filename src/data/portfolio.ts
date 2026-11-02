@@ -25,6 +25,13 @@ export type ProjectImage = {
   caption: string;
 };
 
+export type AwsArchitecture = {
+  services: string[];
+  summary: string;
+  flow?: string[];
+  considerations: string[];
+};
+
 export type Project = {
   id: string;
   name: string;
@@ -51,6 +58,7 @@ export type Project = {
   seoDescription: string;
   workCategories: WorkCategory[];
   status?: string;
+  awsArchitecture?: AwsArchitecture;
 };
 
 export type SupportingWorkItem = {
@@ -67,6 +75,7 @@ export type SupportingWorkItem = {
   image?: string;
   featured: false;
   hasCaseStudy: false;
+  awsArchitecture?: AwsArchitecture;
 };
 
 // This is the only file you need to edit for personal details, links, services, stack, and projects.
@@ -141,8 +150,18 @@ export const projects: Project[] = [
     shortDescription: "Architected and led a multi-tenant platform for employees, attendance devices, shifts, leave, reporting and payroll-related calculations.",
     myRole: "System Architect & Tech Lead",
     leadership: "Led a development team of three engineers.",
-    technologies: ["Next.js", "React", "TypeScript", "shadcn/ui", "NestJS", "Node.js", "Pino", "Claude", "APIs / integrations"],
-    cardTechnologies: ["Next.js", "NestJS", "TypeScript", "shadcn/ui", "Pino"],
+    technologies: ["Next.js", "React", "TypeScript", "shadcn/ui", "NestJS", "Node.js", "Prisma", "PostgreSQL", "Pino", "Claude", "APIs / integrations"],
+    cardTechnologies: ["Next.js", "NestJS", "PostgreSQL", "Prisma", "TypeScript"],
+    awsArchitecture: {
+      services: ["EKS", "SQS", "S3", "Lambda", "SNS", "DynamoDB"],
+      summary: "A proposed containerized deployment for the NestJS API, with queued attendance processing and scheduled report exports.",
+      flow: ["Attendance device", "NestJS API on EKS", "SQS", "Worker", "PostgreSQL"],
+      considerations: [
+        "Keep PostgreSQL and Prisma as the source of truth for shifts, attendance, leave and payroll. Use DynamoDB only for device cursors and event deduplication.",
+        "Store reports in S3, run scheduled exports with Lambda and publish operational alerts through SNS.",
+        "Start with an isolated, representative NestJS demonstration on EKS, with readiness/liveness probes, networking, secret handling, scaling and CI/CD. Production migration is outside this proposal.",
+      ],
+    },
     sections: [
       {
         label: "01 / OVERVIEW",
@@ -184,7 +203,7 @@ export const projects: Project[] = [
         label: "05 / ENGINEERING",
         title: "Architecture and integration work",
         paragraphs: [
-          "The product uses a Next.js frontend and NestJS backend with modular boundaries for the platform's workforce, attendance and reporting concerns. Pino provides structured application logging, while API integrations connect device-related workflows.",
+          "The product uses a Next.js frontend and NestJS backend with Prisma and PostgreSQL, with modular boundaries for workforce, attendance and reporting concerns. Pino provides structured application logging, while API integrations connect device-related workflows.",
           "I also integrated Claude into an adapter layer to assist with extending support and onboarding for additional attendance-device types. The AI-assisted workflow supports the engineering process; it does not autonomously control devices.",
         ],
       },
@@ -220,6 +239,16 @@ export const projects: Project[] = [
     myRole: "Full-stack development & AI integration",
     technologies: ["Next.js", "React", "TypeScript", "Replicate", "MiniMax", "Generative AI"],
     cardTechnologies: ["Next.js", "TypeScript", "Replicate", "MiniMax", "AI"],
+    awsArchitecture: {
+      services: ["Lambda", "SQS", "S3", "DynamoDB", "SNS"],
+      summary: "A proposed serverless generation pipeline to separate customer requests from longer-running AI work.",
+      flow: ["Next.js", "Lambda validation", "SQS generation queue", "AI worker", "S3 images / PDFs"],
+      considerations: [
+        "Use Lambda for validation and short tasks, SQS for buffering and retries, and a dead-letter queue for failed jobs.",
+        "Track generation status in DynamoDB while keeping relational order and payment records in their existing system. Publish completion and failure events through SNS.",
+        "Evaluate Lambda or containerized workers against generation duration and resource requirements. EKS is optional only if the workload justifies Kubernetes.",
+      ],
+    },
     sections: [
       {
         label: "01 / OVERVIEW",
@@ -292,6 +321,14 @@ export const projects: Project[] = [
     myRole: "WordPress development, data integration & infrastructure",
     technologies: ["WordPress", "PHP", "Custom Plugin", "Data Integration", "Load Balancing"],
     cardTechnologies: ["WordPress", "PHP", "Custom Plugin", "Data Integration"],
+    awsArchitecture: {
+      services: ["S3", "Lambda", "SQS"],
+      summary: "A selective proposal for public assets and asynchronous statistics publishing around the existing WordPress portal.",
+      considerations: [
+        "Evaluate S3 for approved public media and exports, Lambda for scheduled data preparation and SQS for background publishing work.",
+        "Any implementation would require institutional approval and data-handling review. This proposal does not describe the institution's current hosting or private systems.",
+      ],
+    },
     sections: [
       {
         label: "01 / OVERVIEW",
@@ -357,6 +394,14 @@ export const projects: Project[] = [
     myRole: "Shopify development & AI integration",
     technologies: ["Shopify", "E-commerce", "Claude", "AI Integration", "APIs / integrations"],
     cardTechnologies: ["Shopify", "E-commerce", "Claude", "AI Integration"],
+    awsArchitecture: {
+      services: ["Lambda", "S3", "SQS"],
+      summary: "A proposed integration layer for Shopify events, queued administration tasks and generated content assets.",
+      considerations: [
+        "Use Lambda for webhook handling, SQS for asynchronous tasks and S3 for generated assets where external storage is appropriate.",
+        "Keep Shopify as the commerce platform and preserve client control over AI-assisted administrative changes.",
+      ],
+    },
     sections: [
       {
         label: "01 / OVERVIEW",
@@ -407,6 +452,16 @@ export const projects: Project[] = [
     myRole: "Automation development & AI integration",
     technologies: ["Chatwoot", "Webhooks", "AI", "Structured Data Extraction", "API Integration"],
     cardTechnologies: ["Chatwoot", "Webhooks", "AI", "API Integration"],
+    awsArchitecture: {
+      services: ["Lambda", "SQS", "S3", "SNS", "DynamoDB"],
+      summary: "The first proposed AWS portfolio implementation: a serverless version of the existing webhook and AI extraction workflow.",
+      flow: ["Chatwoot webhook", "Lambda validation", "SQS", "Lambda AI extraction", "Operational API / CRM"],
+      considerations: [
+        "Store raw payloads and attachments in S3, use DynamoDB for deduplication and job state, and publish result events through SNS.",
+        "Build the demonstration with infrastructure as code, least-privilege IAM, CloudWatch, retries, dead-letter queues, idempotency and tests.",
+        "Document the AWS demonstration separately from the original Chatwoot and API integration. It is planned work, with no completed AWS deployment claimed here.",
+      ],
+    },
     sections: [
       {
         label: "01 / OVERVIEW",
@@ -464,6 +519,11 @@ export const supportingWork: SupportingWorkItem[] = [
     categories: ["Software"],
     description: "Worked as a full-stack developer across a large practice-management SaaS platform, contributing to product functionality and application development.",
     technologies: ["React", "Next.js", "GraphQL", "Node.js", "Prisma"],
+    awsArchitecture: {
+      services: ["EKS", "SQS", "S3", "Lambda"],
+      summary: "Potential fit for containerized services, background work and object storage, depending on the team's architecture and my scope of ownership.",
+      considerations: ["Product contributions do not establish ownership of AWS infrastructure or deployment decisions."],
+    },
     liveUrl: "https://pabau.com/",
     liveLabel: "Visit website",
     featured: false,
@@ -477,6 +537,11 @@ export const supportingWork: SupportingWorkItem[] = [
     categories: ["Software", "Mobile & IoT"],
     description: "Developed web and mobile product interfaces during my time at Tetbit, translating product designs into responsive UI, implementing application functionality and integrating backend APIs.",
     technologies: ["React", "React Native", "TypeScript", "API Integration"],
+    awsArchitecture: {
+      services: ["S3", "Lambda", "SNS", "DynamoDB"],
+      summary: "Optional backend extensions for media storage, event processing, notifications and key-value state; these were outside the documented interface and API integration work.",
+      considerations: [],
+    },
     liveUrl: "https://www.two.jobs/en",
     liveLabel: "Visit website",
     featured: false,
@@ -490,6 +555,11 @@ export const supportingWork: SupportingWorkItem[] = [
     categories: ["Mobile & IoT", "Software"],
     description: "Joined an existing smart-home platform and contributed to its technical evolution, desktop and mobile technology decisions, real-time communication, and a dedicated installer dashboard.",
     technologies: ["Electron", "React / React Native", "MQTT", "LiveKit", "IoT", "AI Integration"],
+    awsArchitecture: {
+      services: ["EKS", "Lambda", "SQS", "SNS", "DynamoDB", "S3", "IoT Core"],
+      summary: "A proposed cloud layer for management APIs, telemetry, device state, incident alerts and diagnostic artifacts. Evaluate AWS IoT Core for MQTT integration.",
+      considerations: ["Keep latency-critical building control local and basic device functionality available without an external cloud connection."],
+    },
     status: "Private / non-public product",
     featured: false,
     hasCaseStudy: false,
@@ -502,6 +572,11 @@ export const supportingWork: SupportingWorkItem[] = [
     categories: ["Mobile & IoT"],
     description: "Developed, redesigned and refactored the mobile application using Ionic and Angular, modernizing the interface and improving the application's overall structure.",
     technologies: ["Ionic", "Angular 2+", "TypeScript", "Hybrid Mobile"],
+    awsArchitecture: {
+      services: ["S3", "Lambda", "SNS", "DynamoDB"],
+      summary: "Optional backend extensions for assets, event processing, notifications and key-value state; the documented contribution remains mobile application modernization.",
+      considerations: [],
+    },
     liveUrl: "https://www.gossik.ch/",
     liveLabel: "Visit website",
     featured: false,

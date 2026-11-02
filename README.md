@@ -23,6 +23,8 @@ npm run build
 
 Personal details, contact links, capabilities, technology groups, engagement models, and project entries are centralized in `src/data/portfolio.ts`.
 
+Project entries can include an optional `awsArchitecture` proposal, rendered separately from delivered technologies on the work archive and case studies. Keep `technologies` and `cardTechnologies` limited to actual project experience. The planned AWS demonstrations and learning priorities appear in `src/components/aws-architecture.tsx`; update their status only when implementation evidence is available.
+
 Before publishing, replace:
 
 - `YOUR_EMAIL`, `YOUR_LINKEDIN_URL`, `YOUR_GITHUB_URL`, and `YOUR_DOMAIN`

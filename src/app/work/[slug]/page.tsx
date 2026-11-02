@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { notFound } from "next/navigation";
 import { projects } from "@/data/portfolio";
 import { OrderWorkflowDiagram } from "@/components/automation-workflow";
+import { AwsArchitectureDetail } from "@/components/aws-architecture";
 
 export const dynamicParams = false;
 
@@ -63,6 +64,7 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
               {section.bullets ? <ul>{section.bullets.map((item) => <li key={item}>{item}</li>)}</ul> : null}
             </section>
           ))}
+          {project.awsArchitecture ? <AwsArchitectureDetail architecture={project.awsArchitecture} /> : null}
         </div>
       </div>
       {project.screenshots.length > 1 ? (
