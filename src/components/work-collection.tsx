@@ -123,7 +123,7 @@ export function WorkCollection() {
                   <h3>{project.name}</h3>
                   <h4>{project.headline}</h4>
                   <p>{project.description}</p>
-                  <div className="work-tags">{project.technologies.slice(0, 6).map((tech) => <span key={tech}>{tech}</span>)}</div>
+                  <div className="work-tags">{project.technologies.map((tech) => <span key={tech}>{tech}</span>)}</div>
                   {project.awsArchitecture ? <AwsArchitecturePreview architecture={project.awsArchitecture} /> : null}
                   {project.awsArchitecture?.considerations.map((item) => <p key={item}>{item}</p>)}
                 </div>
