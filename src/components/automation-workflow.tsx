@@ -1,19 +1,19 @@
 import Link from "next/link";
-import { ArrowRight, BrainCircuit, Braces, Inbox, MessageCircle, Route, Webhook } from "lucide-react";
+import { ArrowRight, BrainCircuit, Braces, Inbox, Route, Webhook } from "lucide-react";
 import { SectionHeading } from "./ui";
 
 const nodes = [
-  { label: "Messages", icon: MessageCircle },
   { label: "Chatwoot", icon: Inbox },
-  { label: "Webhook", icon: Webhook },
-  { label: "AI Extraction", icon: BrainCircuit },
+  { label: "Lambda Validation", icon: Webhook },
+  { label: "SQS Queue", icon: Inbox },
+  { label: "Lambda AI Extraction", icon: BrainCircuit },
   { label: "Structured Order", icon: Braces },
-  { label: "Order Workflow", icon: Route },
+  { label: "API / CRM", icon: Route },
 ];
 
 export function OrderWorkflowDiagram({ caseStudy = false }: { caseStudy?: boolean }) {
   return (
-    <div className={`workflow-visual${caseStudy ? " workflow-visual--case" : ""}`} role="img" aria-label="Simplified internal workflow: messages enter Chatwoot, trigger a webhook and AI extraction, then become structured order data for the client order workflow">
+    <div className={`workflow-visual${caseStudy ? " workflow-visual--case" : ""}`} role="img" aria-label="AWS order-processing workflow: Chatwoot webhooks invoke Lambda validation, SQS queues messages for Lambda AI extraction, and structured orders are delivered to the operational API or CRM">
       <div className="workflow-canvas">
         {nodes.map((node, index) => {
           const Icon = node.icon;
@@ -23,7 +23,7 @@ export function OrderWorkflowDiagram({ caseStudy = false }: { caseStudy?: boolea
           </div>;
         })}
       </div>
-      <p className="workflow-caption">Internal workflow · architecture simplified for portfolio</p>
+      <p className="workflow-caption">AWS order processing · architecture simplified for portfolio</p>
     </div>
   );
 }
@@ -35,7 +35,7 @@ export function AutomationWorkflow() {
         <div className="automation-copy">
           <SectionHeading eyebrow="Real-world automation" title="Development plus automation." />
           <h3>AI Order Extraction System</h3>
-          <p>Built an automated order-processing workflow for a social-commerce operation. Chatwoot webhooks trigger AI processing that identifies relevant messages, extracts structured order details and passes them into the client&apos;s order workflow.</p>
+          <p>Built an AWS-backed order-processing workflow for a social-commerce operation. Chatwoot webhooks invoke Lambda validation, SQS queues extraction jobs, and a Lambda AI worker turns relevant messages into structured orders for the client&apos;s operational API or CRM.</p>
           <p>The system significantly reduced repetitive manual order-entry work while keeping the client&apos;s internal workflow private.</p>
           <Link className="automation-link" href="/work/order-extraction">View case study <ArrowRight aria-hidden="true" /></Link>
         </div>
