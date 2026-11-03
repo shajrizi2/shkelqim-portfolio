@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { portfolio } from "@/data/portfolio";
+import { AnalyticsPreferencesButton } from "./analytics-consent";
 
 export function Footer() {
   const { email, linkedin, github, phone } = portfolio.person;
@@ -11,9 +12,9 @@ export function Footer() {
   ];
   return (
     <footer className="footer shell">
-      <div><Link className="brand" href="#top"><span className="brand-mark">SH</span><span><strong>{portfolio.person.name}</strong><small>{portfolio.person.title}</small></span></Link></div>
+      <div><Link className="brand" href="/#top"><span className="brand-mark">SH</span><span><strong>{portfolio.person.name}</strong><small>{portfolio.person.title}</small></span></Link></div>
       <div className="footer-links">{contacts.map((item) => <a key={item.label} href={item.href} target={item.external ? "_blank" : undefined} rel={item.external ? "noopener noreferrer" : undefined}>{item.label}</a>)}</div>
-      <p>© {new Date().getFullYear()} {portfolio.person.name}</p>
+      <p>© {new Date().getFullYear()} {portfolio.person.name}<br /><Link href="/privacy/">Privacy</Link> · <AnalyticsPreferencesButton /></p>
     </footer>
   );
 }

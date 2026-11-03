@@ -6,6 +6,9 @@ import { notFound } from "next/navigation";
 import { projects } from "@/data/portfolio";
 import { OrderWorkflowDiagram } from "@/components/automation-workflow";
 import { AwsArchitectureDetail } from "@/components/aws-architecture";
+import { projectMetadata, projectGraph } from "@/lib/seo";
+import { JsonLd } from "@/components/json-ld";
+import { Footer } from "@/components/footer";
 
 export const dynamicParams = false;
 
@@ -14,11 +17,7 @@ export function generateStaticParams() { return projects.map(({ slug }) => ({ sl
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const project = projects.find((item) => item.slug === slug);
-  return project ? {
-    title: project.seoTitle,
-    description: project.seoDescription,
-    alternates: { canonical: `/work/${project.slug}/` },
-  } : {};
+  return project ? projectMetadata(project) : {};
 }
 
 export default async function WorkPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -26,7 +25,8 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
   const project = projects.find((item) => item.slug === slug);
   if (!project) notFound();
   return (
-    <main className="case-study shell">
+    <><main className="case-study shell" id="main-content" tabIndex={-1}>
+      <JsonLd data={projectGraph(project)} />
       <Link className="back-link" href="/#work"><ArrowLeft size={16} /> Back to selected work</Link>
       <header className="case-hero">
         <div>
@@ -80,7 +80,12 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
           </div>
         </section>
       ) : null}
+      <nav className="related-work" aria-label="Related case studies">
+        <h2>More engineering work</h2>
+        {projects.filter((item) => item.slug !== project.slug).slice(0, 3).map((item) => <Link key={item.slug} href={`/work/${item.slug}/`}>{item.name} <ArrowUpRight aria-hidden="true" size={14} /></Link>)}
+        <Link href="/work/">Explore all projects <ArrowUpRight aria-hidden="true" size={14} /></Link>
+      </nav>
       <div className="case-end"><p>Looking for similar development capacity?</p><Link className="button button--primary" href="/#contact">Start a conversation <ArrowUpRight size={17} /></Link></div>
-    </main>
+    </main><Footer /></>
   );
 }

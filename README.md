@@ -27,7 +27,7 @@ Open [http://localhost:3000](http://localhost:3000).
   text consistent with the entries in the content file.
 - `src/lib/site-url.ts` builds absolute URLs for metadata. Set
   `NEXT_PUBLIC_SITE_URL` to the public origin before building for deployment;
-  without it, the fallback is `http://localhost:3000`.
+  without it, the canonical origin is `https://hajrizi.dev`.
 - Project `awsArchitecture` entries describe integrated AWS services, processing
   flows and engineering decisions. Keep these descriptions consistent with the
   technology lists and project summaries. The shared rendering lives in
@@ -48,18 +48,25 @@ npm run typecheck
 npm run build
 ```
 
-No automated test suite is configured in `package.json`. Check rendered desktop
-and mobile pages, keyboard navigation, project links and contact destinations
-before publishing; the commands above do not verify external services or client
-case-study outcomes.
+Run `npm test` for authentication, reporting and event tests. After a build,
+`npm run test:seo` verifies the exported metadata, sitemap, JSON-LD and internal
+links. `npm run test:browser` builds an isolated analytics test configuration,
+runs desktop/mobile accessibility and consent checks, then restores the normal
+production build. Install Chromium with `npx playwright install chromium` first.
+
+See [SEO_ANALYTICS_SETUP.md](SEO_ANALYTICS_SETUP.md) for Google Analytics,
+Search Console, private dashboard authentication, environment variables,
+performance audits and the production approval checklist. These checks do not
+prove Google indexing, client outcomes or an account connection without credentials.
 
 ## Deployment
 
 The site uses Next.js static export (`output: 'export'`). `npm run build`
 generates the deployable site in `out/`; `netlify.toml` configures Netlify to use
-that build command and publish directory. For a local production preview, run
-`python3 -m http.server 4173 --directory out` and open
-[http://localhost:4173](http://localhost:4173). `npm start` is not the preview
+that build command and publish directory. Netlify Functions serve the private
+dashboard and read-only Google APIs. The public export stays static. For a local
+preview of both public pages and the protected handler, run `npm run preview` and
+open [http://127.0.0.1:4317](http://127.0.0.1:4317). `npm start` is not the preview
 command for this static export.
 
 Set `NEXT_PUBLIC_SITE_URL` to the final public origin in the build environment

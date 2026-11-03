@@ -2,23 +2,18 @@ import type { Metadata } from "next";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { WorkCollection } from "@/components/work-collection";
+import { collectionGraph, pageMetadata, workSeo } from "@/lib/seo";
+import { JsonLd } from "@/components/json-ld";
 
-export const metadata: Metadata = {
-  title: "Selected Work",
-  description: "Software products, websites, mobile applications, e-commerce projects and automation systems built or contributed to by Shkelqim Hajrizi.",
-  alternates: { canonical: "/work/" },
-  openGraph: {
-    title: "Selected Work — Shkelqim Hajrizi",
-    description: "Software products, websites, mobile applications, e-commerce projects and automation systems built or contributed to by Shkelqim Hajrizi.",
-    url: "/work/",
-  },
-};
+export const metadata: Metadata = pageMetadata(workSeo.title, workSeo.description, "/work/", "work");
 
 export default function WorkIndexPage() {
   return (
     <>
       <Navbar homeNavigation />
-      <main className="work-index" id="top">
+      <JsonLd data={collectionGraph} />
+      <main className="work-index" id="main-content" tabIndex={-1}>
+        <span id="top" />
         <header className="work-index-hero shell">
           <p className="eyebrow"><span />Selected project archive</p>
           <h1>Selected Projects <em>&amp; Work</em></h1>

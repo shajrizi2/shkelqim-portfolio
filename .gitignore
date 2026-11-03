@@ -6,3 +6,9 @@ out
 .DS_Store
 .env*
 !.env.example
+server/dashboard/dist/
+artifacts/
+playwright-report/
+test-results/
+*.tsbuildinfo
+.netlify/
