@@ -14,7 +14,7 @@ export function About() {
         </div>
         <div className="production-intro">
           <div>
-            <p>I&apos;m a senior full-stack engineer based in Europe. I&apos;ve led a small development team as architect, built AI products and AI-driven automations, modernized legacy applications, and shipped everything from WordPress sites to Electron apps controlling smart-home hardware.</p>
+            <p>I&apos;m a senior full-stack and AI automation engineer based in Kosovo, Europe. I&apos;ve led a small development team as architect, built AI products and AI-driven automations, modernized legacy applications, and shipped everything from WordPress sites to Electron apps controlling smart-home hardware.</p>
             <p>That range is the point: your agency gets one person who can pick up whatever lands on the table, join existing codebases quickly, and own the work through to production.</p>
           </div>
           <div className="about-checks"><span><CheckCircle2 /> Existing codebases</span><span><CheckCircle2 /> Independent ownership</span><span><CheckCircle2 /> Long-term collaboration</span><span><CheckCircle2 /> Production support</span></div>

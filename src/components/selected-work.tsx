@@ -18,7 +18,6 @@ export function SelectedWork() {
                 src={project.thumbnail}
                 alt={project.thumbnailAlt}
                 fill
-                priority={index === 0}
                 sizes={index === 0 ? "(max-width: 800px) 100vw, 1200px" : index === 3 ? "(max-width: 800px) 100vw, 680px" : "(max-width: 800px) 100vw, 586px"}
               />
             </Link>

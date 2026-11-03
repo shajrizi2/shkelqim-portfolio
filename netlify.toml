@@ -1,3 +1,82 @@
 [build]
   command = "npm run build"
   publish = "out"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+  external_node_modules = ["google-auth-library"]
+
+[functions.analytics]
+  included_files = ["server/dashboard/dist/**"]
+
+[[redirects]]
+  from = "/opengraph-image.png"
+  to = "/social/portfolio.png"
+  status = 301
+
+[[redirects]]
+  from = "https://www.hajrizi.dev/*"
+  to = "https://hajrizi.dev/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://hajrizi.dev/*"
+  to = "https://hajrizi.dev/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.hajrizi.dev/*"
+  to = "https://hajrizi.dev/:splat"
+  status = 301
+  force = true
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/projects/*.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
+
+[[headers]]
+  for = "/dashboard*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+    Cache-Control = "private, no-store"
+
+[[headers]]
+  for = "/api/private/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+    Cache-Control = "private, no-store"
+
+[[headers]]
+  for = "/404.html"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/google*.html"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+[context.deploy-preview.environment]
+  NEXT_PUBLIC_GA_MEASUREMENT_ID = ""
+
+[context.branch-deploy.environment]
+  NEXT_PUBLIC_GA_MEASUREMENT_ID = ""
