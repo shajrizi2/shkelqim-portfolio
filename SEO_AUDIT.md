@@ -1,8 +1,9 @@
 # SEO and analytics implementation audit
 
 Audit date: 3 November 2026. Production inspected: `https://hajrizi.dev/`.
-This report describes implemented code and local verification. It does not claim
-the feature branch is deployed, connected to Google properties or indexed.
+This report describes implemented code, local verification and the Netlify draft
+preview. It does not claim production deployment, connected Google properties or
+Google indexing.
 
 ## Findings and implemented fixes
 
@@ -97,6 +98,15 @@ dashboard screenshots are in the ignored local `artifacts/` directory.
 | Handoff | `SEO_ANALYTICS_SETUP.md`, `SEO_AUDIT.md`, `README.md` |
 
 ## Remaining external verification and owner actions
+
+The Netlify preview for draft PR #6 was verified at implementation commit
+`7258252`: all eight public pages return 200 with preview noindex; the supplied
+verification file returns 200 with its exact content and noindex header; unknown
+pages return 404. Unauthenticated dashboard HTML and app JavaScript redirect to
+login. The reporting API and login return setup/unconfigured responses while
+authentication is disabled, with no analytics data, no-store and noindex headers.
+Netlify's deployment, header and redirect checks passed. This is preview
+verification, not a change to `https://hajrizi.dev/` production.
 
 Google properties, credentials and owner sign-in are not connected without the
 owner's secrets and permissions. Supply those through Netlify, configure GA4's
